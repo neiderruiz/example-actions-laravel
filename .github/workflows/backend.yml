@@ -1,0 +1,26 @@
+name: Backend DEV CD
+
+on:
+  push:
+    branches: [development]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+  deploy:
+    needs: [build-and-push]
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and deploy on Linux 🚀
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: cd /var/www/development-api-flash-dealer/project/
+            git checkout -f
+            git pull
