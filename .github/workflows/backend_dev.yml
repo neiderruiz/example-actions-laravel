@@ -16,4 +16,3 @@ jobs:
           script: |
             cd /var/www/example-actions-laravel
             sudo git pull
-            ${{ secrets.SSH_PASSWORD }}
